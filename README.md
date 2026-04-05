@@ -28,7 +28,7 @@ Essa classe vai ser o intermediador entre o banco de dados e a classe Cliente, f
 # Como compilar e executar
 
 ## Compilando
-Para compilar qualquer classe que dependa do Driver para funcionar você pode executar o comando:
+Para compilar qualquer classe que dependa do Driver para funcionar, você pode executar o comando:
 
 `javac -cp .:lib/(seu-driver.jar) *.java -d bin`
 
