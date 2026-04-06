@@ -11,14 +11,14 @@ import main.java.model.Cliente;
 
 public class ClientesDAO {
     private static List<Cliente> clientes = new ArrayList<>();
+    private static List<String> column = new ArrayList<>();
     
     public static List<Cliente> selectClientes(Connection connection) {
 
-        try {
-            PreparedStatement prstmt = DAO.createQuery(connection, "SELECT * FROM cliente");
-            ResultSet rs = prstmt.executeQuery();
-
-
+        PreparedStatement prstmt = DAO.createQuery(connection, "SELECT * FROM cliente");
+        ResultSet rs = DAO.getResult(prstmt);
+        
+        try{
             while(rs.next()) {
                 Cliente cliente = new Cliente();
                 
@@ -26,9 +26,11 @@ public class ClientesDAO {
                 cliente.setNome(rs.getString("nome_cliente"));
                 cliente.setEndereco(rs.getString("endereco"));
 
-                clientes.add(cliente);
+                ClientesDAO.clientes.add(cliente);
             }
-            
+
+            setColumns(rs);
+
             prstmt.close();
             rs.close();
         
@@ -37,5 +39,17 @@ public class ClientesDAO {
         }
 
         return ClientesDAO.clientes;
+    }
+
+    public static void setColumns(ResultSet rs) {
+        if(ClientesDAO.column.isEmpty()) {
+            ClientesDAO.column = DAO.getColumn(rs);
+        } else {
+            System.out.println("oi");
+        }
+    }
+
+    public static List<String> getColumns() {
+        return ClientesDAO.column;
     }
 }

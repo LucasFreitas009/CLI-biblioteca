@@ -22,6 +22,7 @@ public class Teste {
                 System.out.println("nome do cliente: " + clientes.get(i).getNome());
                 System.out.println("endereço: " + clientes.get(i).getEndereco());
                 System.out.println("-".repeat(15));
+
             }
 
         } catch (SQLException e) {
