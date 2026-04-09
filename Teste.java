@@ -6,9 +6,6 @@ import java.util.List;
 import main.java.connections.Connect;
 import main.java.dao.ClientesDAO;
 import main.java.interfaces.CLIInterface;
-import main.java.model.Cliente;
-
-//import main.java.connections.Connect;
 
 public class Teste {
     public static void main(String[] args) {
@@ -16,12 +13,12 @@ public class Teste {
         try (
             Connection connection = Connect.connect();
         ) {
-            List<Cliente> clientes = ClientesDAO.selectClientes(connection);
+            ClientesDAO.selectClientes(connection);
             List<String> columns = ClientesDAO.getColumns();
             
             CLIInterface cliInterface = new CLIInterface();
             
-            cliInterface.all(columns, clientes);
+            cliInterface.all(columns, ClientesDAO.getRows());
 
         } catch (SQLException e) {
             System.out.println("Error");

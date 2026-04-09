@@ -13,7 +13,7 @@ public class ClientesDAO {
     private static List<Cliente> clientes = new ArrayList<>();
     private static List<String> column = new ArrayList<>();
     
-    public static List<Cliente> selectClientes(Connection connection) {
+    public static void selectClientes(Connection connection) {
 
         PreparedStatement prstmt = DAO.createQuery(connection, "SELECT * FROM cliente");
         ResultSet rs = DAO.getResult(prstmt);
@@ -37,8 +37,6 @@ public class ClientesDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return ClientesDAO.clientes;
     }
 
     public static void setColumns(ResultSet rs) {
@@ -51,5 +49,21 @@ public class ClientesDAO {
 
     public static List<String> getColumns() {
         return ClientesDAO.column;
+    }
+
+    public static List<String> getRows() {
+        List<String> rows = new ArrayList<>();
+
+        if(!clientes.isEmpty()) {
+            for(int i = 0; i < clientes.size(); i ++) {
+                rows.add(Integer.toString(clientes.get(i).getId()));
+                rows.add(clientes.get(i).getNome());
+                rows.add(clientes.get(i).getEndereco());
+            }
+
+            return rows;
+        }
+
+        return null;
     }
 }
